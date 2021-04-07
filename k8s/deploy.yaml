@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: java-redis-client
+  name: java-redis-client
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: java-redis-client
+  template:
+    metadata:
+      labels:
+        app: java-redis-client
+    spec:
+      containers:
+      - image: nectiadocker2000/test-redis-client:v1
+        name: java-redis-client
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: k8s
+        - name: REDIS_HOST
+          value: redis-10698.c256.us-east-1-2.ec2.cloud.redislabs.com
+        - name: REDIS_PORT
+          value: "10698"
+        - name: REDIS_PASSWORD
+          value: gc8fMWDVhTk6hKY7aWHZsSq4ELht5Kst
+        ports:
+        - containerPort: 8083
+          protocol: TCP
